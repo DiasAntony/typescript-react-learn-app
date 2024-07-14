@@ -7,11 +7,18 @@ import { Genres } from "./hooks/useGenre";
 import PlatformSelecter from "./components/PlatformSelecter";
 import { Platform } from "./hooks/usePlatforms";
 
+export interface GameQuery {
+  genre: Genres | null;
+  platform: Platform | null;
+}
+
 function App() {
-  const [selectedGenre, setSelectedGenre] = useState<Genres | null>(null);
-  const [selectedPlatform, setSelectedPlatform] = useState<Platform | null>(
-    null
-  );
+  // const [selectedGenre, setSelectedGenre] = useState<Genres | null>(null);
+  // const [selectedPlatform, setSelectedPlatform] = useState<Platform | null>(
+  //   null
+  // );
+
+  const [gameQuery, setGameQuery] = useState<GameQuery>({} as GameQuery);
 
   return (
     <>
@@ -31,20 +38,29 @@ function App() {
         <Show above="lg">
           <GridItem area={"aside"} paddingX={5}>
             <GenresList
-              selectedGenre={selectedGenre}
-              onSelectGenre={(genre) => setSelectedGenre(genre)}
+              selectedGenre={gameQuery.genre}
+              // selectedGenre={selectedGenre}
+              // onSelectGenre={(genre) => setSelectedGenre( genre )}
+              onSelectGenre={(genre) => setGameQuery({ ...gameQuery, genre })}
             />
           </GridItem>
         </Show>
 
         <GridItem area={"main"}>
           <PlatformSelecter
-            selectedPlatform={selectedPlatform}
-            onSelectPlatform={(plat) => setSelectedPlatform(plat)}
+            selectedPlatform={gameQuery.platform}
+            // selectedPlatform={selectedPlatform}
+            // onSelectPlatform={(plat) =>
+            //   setSelectedPlatform( plat )
+            // }
+            onSelectPlatform={(plat) =>
+              setGameQuery({ ...gameQuery, platform: plat })
+            }
           />
           <GameGid
-            selectedGenre={selectedGenre}
-            selectedPlatform={selectedPlatform}
+            // selectedGenre={selectedGenre}
+            // selectedPlatform={selectedPlatform}
+            gameQuery={gameQuery}
           />
         </GridItem>
       </Grid>
