@@ -4,14 +4,16 @@ import GameCard from "./GameCard";
 import GameCardContainer from "./GameCardContainer";
 import GameCardSkeleton from "./GameCardSkeleton";
 import { Genres } from "../hooks/useGenre";
+import { Platform } from "../hooks/usePlatforms";
 
 interface Props {
   selectedGenre: Genres | null;
+  selectedPlatform: Platform | null;
 }
 
-const GameGid = ({ selectedGenre }: Props) => {
+const GameGid = ({ selectedGenre, selectedPlatform }: Props) => {
   // const { games, error, loading } = useGames();
-  const { data, error, loading } = useGames(selectedGenre);
+  const { data, error, loading } = useGames(selectedGenre, selectedPlatform);
 
   const skelitons = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
 
