@@ -18,7 +18,7 @@ function App() {
   //   null
   // );
 
-  const [gameQuery, setGameQuery] = useState<GameQuery>({} as GameQuery);
+  const [gameQuery, setGameQuery] = useState<GameQuery>({} as GameQuery); //without as we can't set empty object value as a initial value
 
   return (
     <>
