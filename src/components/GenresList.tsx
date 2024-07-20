@@ -2,6 +2,7 @@
 // import useGenre, { Genres } from "../hooks/useGenre";
 import {
   Button,
+  Heading,
   HStack,
   Image,
   List,
@@ -35,29 +36,37 @@ const GenresList = ({ selectedGenre, onSelectGenre }: Props) => {
     );
 
   return (
-    <List>
-      {/* {genres.map((e) => ( */}
-      {data.map((e) => (
-        <ListItem key={e.id} paddingY={"5px"}>
-          <HStack>
-            <Image
-              boxSize={"32px"}
-              borderRadius={8}
-              src={getCroppedImageUrl(e.image_background)}
-            />
-            <Button
-              onClick={() => onSelectGenre(e)}
-              variant={"link"}
-              fontSize={"lg"}
-              fontWeight={e.id == selectedGenre?.id ? "bold" : "normal"}
-              color={e.id == selectedGenre?.id ? "green.500" : ""}
-            >
-              {e.name}
-            </Button>
-          </HStack>
-        </ListItem>
-      ))}
-    </List>
+    <>
+      <Heading fontSize={"2xl"} marginBottom={3}>
+        Genre
+      </Heading>
+      <List>
+        {/* {genres.map((e) => ( */}
+        {data.map((e) => (
+          <ListItem key={e.id} paddingY={"5px"}>
+            <HStack>
+              <Image
+                boxSize={"32px"}
+                borderRadius={8}
+                src={getCroppedImageUrl(e.image_background)}
+                objectFit={"cover"}
+              />
+              <Button
+                whiteSpace={"normal"} //generally btn don't wrap text so overlap or break the css seems like [whiteSpace={'nowarp'} ]==>defaultly so we changed it...
+                textAlign={"left"}
+                onClick={() => onSelectGenre(e)}
+                variant={"link"}
+                fontSize={"lg"}
+                fontWeight={e.id == selectedGenre?.id ? "bold" : "normal"}
+                color={e.id == selectedGenre?.id ? "green.500" : ""}
+              >
+                {e.name}
+              </Button>
+            </HStack>
+          </ListItem>
+        ))}
+      </List>
+    </>
   );
 };
 

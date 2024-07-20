@@ -70,6 +70,7 @@ export interface Games {
   background_image: string;
   parent_platforms: { platform: Platform }[]; //why becouse parent_platforms:[{platform:{id:1,name:"PC",slug:"pc"}},{platform:{id:2,name:"XO",slug:"xo"}},{platform:{id:3,name:"Laptop",slug:"lap"}}]
   metacritic: number;
+  rating_top: number;
 }
 
 const useGames = (
@@ -84,7 +85,8 @@ const useGames = (
       params: {
         genres: gameQuery.genre?.id,
         platforms: gameQuery.platform?.id,
-        ordering:gameQuery.sortOrder
+        ordering: gameQuery.sortOrder,
+        search: gameQuery.searchText,
       },
     },
     // [selectedGenre?.id, selectedPlatform?.id]
