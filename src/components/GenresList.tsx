@@ -8,7 +8,6 @@ import {
   List,
   ListItem,
   SkeletonText,
-  Text,
 } from "@chakra-ui/react";
 import useGenre, { Genres } from "../hooks/useGenre";
 import { getCroppedImageUrl } from "../services/image-url";
