@@ -1,28 +1,24 @@
 import { Box, Grid, GridItem, HStack, Show } from "@chakra-ui/react";
+import { useState } from "react";
 import GameGid from "./components/GameGid";
+import GameHeading from "./components/GameHeading";
 import GenresList from "./components/GenresList";
 import NavBar from "./components/NavBar";
-import { useState } from "react";
-import { Genres } from "./hooks/useGenre";
 import PlatformSelecter from "./components/PlatformSelecter";
-import { Platform } from "./hooks/usePlatforms";
 import SortSelecter from "./components/SortSelector";
-import GameHeading from "./components/GameHeading";
 
 export interface GameQuery {
-  genre: Genres | null;
-  platform: Platform | null;
+  genreId?: number;
+  platformId?: number;
   sortOrder: string;
   searchText: string;
 }
 
 function App() {
-  // const [selectedGenre, setSelectedGenre] = useState<Genres | null>(null);
-  // const [selectedPlatform, setSelectedPlatform] = useState<Platform | null>(
-  //   null
-  // );
 
-  const [gameQuery, setGameQuery] = useState<GameQuery>({} as GameQuery); //without as we can't set empty object value as a initial value
+  const [gameQuery, setGameQuery] = useState<GameQuery>(
+    {} as GameQuery
+  );
 
   return (
     <>
@@ -46,10 +42,8 @@ function App() {
         <Show above="lg">
           <GridItem area={"aside"} paddingX={5}>
             <GenresList
-              selectedGenre={gameQuery.genre}
-              // selectedGenre={selectedGenre}
-              // onSelectGenre={(genre) => setSelectedGenre( genre )}
-              onSelectGenre={(genre) => setGameQuery({ ...gameQuery, genre })}
+             selectedGenreId={gameQuery.genreId}
+              onSelectGenre={(genre) => setGameQuery({ ...gameQuery, genreId: genre.id })}
             />
           </GridItem>
         </Show>
@@ -59,13 +53,9 @@ function App() {
             <GameHeading gameQuery={gameQuery} />
             <HStack spacing={5} marginBottom={5}>
               <PlatformSelecter
-                selectedPlatform={gameQuery.platform}
-                // selectedPlatform={selectedPlatform}
-                // onSelectPlatform={(plat) =>
-                //   setSelectedPlatform( plat )
-                // }
+                selectedPlatformId={gameQuery.platformId}
                 onSelectPlatform={(plat) =>
-                  setGameQuery({ ...gameQuery, platform: plat })
+                  setGameQuery({ ...gameQuery, platformId: plat.id, })
                 }
               />
               <SortSelecter

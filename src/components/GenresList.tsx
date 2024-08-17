@@ -1,5 +1,4 @@
-// import useData from "../hooks/useData";
-// import useGenre, { Genres } from "../hooks/useGenre";
+
 import {
   Button,
   Heading,
@@ -9,22 +8,20 @@ import {
   ListItem,
   SkeletonText,
 } from "@chakra-ui/react";
-import useGenre, { Genres } from "../hooks/useGenre";
+import useGenres, { Genre } from "../hooks/useGenres";
 import { getCroppedImageUrl } from "../services/image-url";
 
 interface Props {
-  onSelectGenre: (genre: Genres) => void;
-  selectedGenre: Genres | null;
+  onSelectGenre: (genre: Genre) => void;
+  selectedGenreId?: number;
 }
 
-const GenresList = ({ selectedGenre, onSelectGenre }: Props) => {
-  // const { genres } = useGenre();
-  // const { data } = useData<Genres>("/genres");
-  const { data, loading, error } = useGenre();
+const GenresList = ({ selectedGenreId, onSelectGenre }: Props) => {
+  const { data, isLoading, error } = useGenres();
 
   if (error) return null;
 
-  if (loading)
+  if (isLoading)
     return (
       <SkeletonText
         noOfLines={30}
@@ -41,7 +38,7 @@ const GenresList = ({ selectedGenre, onSelectGenre }: Props) => {
       </Heading>
       <List>
         {/* {genres.map((e) => ( */}
-        {data.map((e) => (
+        {data?.results?.map((e) => (
           <ListItem key={e.id} paddingY={"5px"}>
             <HStack>
               <Image
@@ -56,8 +53,8 @@ const GenresList = ({ selectedGenre, onSelectGenre }: Props) => {
                 onClick={() => onSelectGenre(e)}
                 variant={"link"}
                 fontSize={"lg"}
-                fontWeight={e.id == selectedGenre?.id ? "bold" : "normal"}
-                color={e.id == selectedGenre?.id ? "green.500" : ""}
+                fontWeight={e.id == selectedGenreId ? "bold" : "normal"}
+                color={e.id == selectedGenreId ? "green.500" : ""}
               >
                 {e.name}
               </Button>

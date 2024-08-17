@@ -1,96 +1,37 @@
-// import { CanceledError } from "axios";
-// import { useEffect, useState } from "react";
-// import apiClient from "../services/api-client";
-
+import { useInfiniteQuery } from "react-query";
 import { GameQuery } from "../App";
-import useData from "./useData";
-// import { Genres } from "./useGenre";
+import APIClient, { FetchResponse } from "../services/api-client";
+import { Platform } from "./usePlatforms";
+import ms from "ms";
 
-// export interface Platform {
-//   id: number;
-//   name: string;
-//   slug: string;
-// }
-
-// export interface Games {
-//   id: number;
-//   name: string;
-//   background_image: string;
-//   parent_platforms: { platform: Platform }[]; //why becouse parent_platforms:[{platform:{id:1,name:"PC",slug:"pc"}},{platform:{id:2,name:"XO",slug:"xo"}},{platform:{id:3,name:"Laptop",slug:"lap"}}]
-//   metacritic: number;
-// }
-
-// interface FetchGameResponse {
-//   count: number;
-//   results: Games[];
-// }
-
-// const useGames = () => {
-//   const [games, setGames] = useState<Games[]>([]);
-//   const [error, setError] = useState("");
-//   const [loading, setLoading] = useState(false);
-
-//   useEffect(() => {
-//     const controller = new AbortController();
-//     setLoading(true);
-//     apiClient
-//       .get<FetchGameResponse>("/games", { signal: controller.signal })
-//       .then((res) => {
-//         setGames(res.data.results);
-//         setLoading(false);
-//       })
-//       .catch((err) => {
-//         if (err instanceof CanceledError) return;
-//         setLoading(false);
-//         setError(err.message);
-//       });
-//     // .finally(() => {
-//     //   setLoading(false); // Move setLoading inside finally block   //why not finaly coz loading doesn't appear in developement
-//     // });
-
-//     return () => controller.abort();
-//   }, []);
-
-//   return { games, error, loading };
-// };
-
-// export default useGames;
-
-// ------------------------------- New Way we just use this Hook for hiding url in that components -----------------------------------------
-
-export interface Platform {
-  id: number;
-  name: string;
-  slug: string;
-}
-
-export interface Games {
+export interface Game {
   id: number;
   name: string;
   background_image: string;
   parent_platforms: { platform: Platform }[]; //why becouse parent_platforms:[{platform:{id:1,name:"PC",slug:"pc"}},{platform:{id:2,name:"XO",slug:"xo"}},{platform:{id:3,name:"Laptop",slug:"lap"}}]
   metacritic: number;
-  rating_top: number;
 }
 
-const useGames = (
-  gameQuery: GameQuery
-  // selectedGenre: Genres | null,
-  // selectedPlatform: Platform | null
-) =>
-  useData<Games>(
-    "/games",
-    // { params: { genres: selectedGenre?.id, platforms: selectedPlatform?.id } },
-    {
-      params: {
-        genres: gameQuery.genre?.id,
-        platforms: gameQuery.platform?.id,
-        ordering: gameQuery.sortOrder,
-        search: gameQuery.searchText,
-      },
+const apiClient = new APIClient<Game>("/games");
+
+const useGames = (gameQuery: GameQuery) =>
+  useInfiniteQuery<FetchResponse<Game>, Error>({
+    queryKey: ["games", gameQuery],
+    queryFn: ({ pageParam = 1 }) =>
+      apiClient.getAll({
+        params: {
+          genres: gameQuery.genreId,
+          parent_platforms: gameQuery.platformId,
+          ordering: gameQuery.sortOrder,
+          search: gameQuery.searchText,
+          page: pageParam,
+        },
+      }),
+    getNextPageParam: (lastPage, allPages) => {
+      return lastPage.next ? allPages.length + 1 : undefined;
     },
-    // [selectedGenre?.id, selectedPlatform?.id]
-    [gameQuery]
-  );
+    // staleTime: 24 * 60 * 60 * 1000 //24h
+    staleTime: ms("24h"),
+  });
 
 export default useGames;
