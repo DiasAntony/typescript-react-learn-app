@@ -1,4 +1,3 @@
-
 import {
   Button,
   Heading,
@@ -8,16 +7,15 @@ import {
   ListItem,
   SkeletonText,
 } from "@chakra-ui/react";
-import useGenres, { Genre } from "../hooks/useGenres";
+import useGenres from "../hooks/useGenres";
 import { getCroppedImageUrl } from "../services/image-url";
+import useGameQueryStore from "../store";
 
-interface Props {
-  onSelectGenre: (genre: Genre) => void;
-  selectedGenreId?: number;
-}
-
-const GenresList = ({ selectedGenreId, onSelectGenre }: Props) => {
+const GenresList = () => {
   const { data, isLoading, error } = useGenres();
+
+  const genreId = useGameQueryStore((s) => s.gameQuery.genreId);
+  const setGenreId = useGameQueryStore((s) => s.setGenreId);
 
   if (error) return null;
 
@@ -50,11 +48,11 @@ const GenresList = ({ selectedGenreId, onSelectGenre }: Props) => {
               <Button
                 whiteSpace={"normal"} //generally btn don't wrap text so overlap or break the css seems like [whiteSpace={'nowarp'} ]==>defaultly so we changed it...
                 textAlign={"left"}
-                onClick={() => onSelectGenre(e)}
+                onClick={() => setGenreId(e.id)}
                 variant={"link"}
                 fontSize={"lg"}
-                fontWeight={e.id == selectedGenreId ? "bold" : "normal"}
-                color={e.id == selectedGenreId ? "green.500" : ""}
+                fontWeight={e.id == genreId ? "bold" : "normal"}
+                color={e.id == genreId ? "green.500" : ""}
               >
                 {e.name}
               </Button>

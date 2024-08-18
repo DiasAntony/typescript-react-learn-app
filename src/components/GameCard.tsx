@@ -1,4 +1,4 @@
-import { Games } from "../hooks/useGames";
+import { Game } from "../hooks/useGames";
 import {
   Box,
   Card,
@@ -13,7 +13,7 @@ import { getCroppedImageUrl } from "../services/image-url";
 import Emoji from "./Emoji";
 
 interface Props {
-  game: Games;
+  game: Game;
 }
 
 const GameCard = ({ game }: Props) => {
