@@ -20,11 +20,11 @@ const useGameQueryStore = create<GameQueryStore>((set) => ({
   setSearchText: (searchText) => set(() => ({ gameQuery: { searchText } })), //why previous state don't need here because when search filter should be lose some(we may forgot filter to remove that's why) kind of data.... thats why
   setGenreId: (genreId) =>
     set((store) => ({
-      gameQuery: { ...store.gameQuery, genreId },
+      gameQuery: { ...store.gameQuery, genreId, searchText: undefined },
     })),
   setPlatformId: (platformId) =>
     set((store) => ({
-      gameQuery: { ...store.gameQuery, platformId },
+      gameQuery: { ...store.gameQuery, platformId, searchText: undefined },
     })),
   setSortOrder: (sortOrder) =>
     set((store) => ({
