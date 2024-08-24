@@ -1,6 +1,6 @@
 import { useQuery } from "react-query";
 import APIClient from "../services/api-client";
-import { Game } from "../entites/Game";
+import Game from "../entites/Game";
 
 const apiClient = new APIClient<Game>("/games");
 

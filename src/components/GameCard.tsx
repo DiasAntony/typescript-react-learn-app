@@ -1,6 +1,6 @@
 import { Box, Card, CardBody, Heading, HStack, Image } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
-import { Game } from "../entites/Game";
+import Game from "../entites/Game";
 import { getCroppedImageUrl } from "../services/image-url";
 import CreticScore from "./CreticScore";
 import Emoji from "./Emoji";

@@ -2,7 +2,7 @@ import ms from "ms";
 import { useQuery } from "react-query";
 import genres from "../data/geners";
 import APIClient from "../services/api-client";
-import { Genre } from "../entites/Genre";
+import Genre from "../entites/Genre";
 
 const apiClient = new APIClient<Genre>("/genres");
 

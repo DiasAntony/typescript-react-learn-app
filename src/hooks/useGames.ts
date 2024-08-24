@@ -2,7 +2,7 @@ import ms from "ms";
 import { useInfiniteQuery } from "react-query";
 import APIClient, { FetchResponse } from "../services/api-client";
 import useGameQueryStore from "../store";
-import { Game } from "../entites/Game";
+import Game from "../entites/Game";
 
 const apiClient = new APIClient<Game>("/games");
 

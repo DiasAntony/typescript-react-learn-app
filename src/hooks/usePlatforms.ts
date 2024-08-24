@@ -1,7 +1,7 @@
 import ms from "ms";
 import { useQuery } from "react-query";
 import platforms from "../data/platforms";
-import { Platform } from "../entites/Platform";
+import Platform from "../entites/Platform";
 import APIClient from "../services/api-client";
 
 const apiClient = new APIClient<Platform>("/platforms/lists/parents");

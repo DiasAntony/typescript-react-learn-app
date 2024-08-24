@@ -2,22 +2,22 @@ import { HStack, Icon } from "@chakra-ui/react";
 import { IconType } from "react-icons";
 import { BsGlobe } from "react-icons/bs";
 import {
-    FaAndroid,
-    FaApple,
-    FaLinux,
-    FaPlaystation,
-    FaWindows,
-    FaXbox,
+  FaAndroid,
+  FaApple,
+  FaLinux,
+  FaPlaystation,
+  FaWindows,
+  FaXbox,
 } from "react-icons/fa";
 import { MdPhoneIphone } from "react-icons/md";
 import { SiNintendo } from "react-icons/si";
-import { Platform } from "../entites/Platform";
+import Platform from "../entites/Platform";
 
 interface Props {
   platforms: Platform[];
 }
 
-const PlatformIconList = ({ platforms=[] }: Props) => {
+const PlatformIconList = ({ platforms = [] }: Props) => {
   const iconMap: { [key: string]: IconType } = {
     // name:PlayStation
     // slug:playstation
