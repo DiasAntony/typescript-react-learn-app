@@ -5,6 +5,8 @@ import NavBar from "../components/NavBar";
 const ErrorPage = () => {
   const error = useRouteError();
 
+  document.title = "Error OOps";
+
   return (
     <>
       <NavBar />

@@ -6,6 +6,8 @@ import PlatformSelecter from "../components/PlatformSelecter";
 import SortSelecter from "../components/SortSelector";
 
 const HomePage = () => {
+  document.title = "Games";
+
   return (
     <Grid
       templateAreas={{
