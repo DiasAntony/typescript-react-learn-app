@@ -1,13 +1,8 @@
-import APIClient from "../services/api-client";
-import genres from "../data/geners";
-import { useQuery } from "react-query";
 import ms from "ms";
-
-export interface Genre {
-  id: number;
-  name: string;
-  image_background: string;
-}
+import { useQuery } from "react-query";
+import genres from "../data/geners";
+import APIClient from "../services/api-client";
+import { Genre } from "../entites/Genre";
 
 const apiClient = new APIClient<Genre>("/genres");
 

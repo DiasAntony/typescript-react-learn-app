@@ -2,16 +2,7 @@ import ms from "ms";
 import { useInfiniteQuery } from "react-query";
 import APIClient, { FetchResponse } from "../services/api-client";
 import useGameQueryStore from "../store";
-import { Platform } from "./usePlatforms";
-
-export interface Game {
-  rating_top: number;
-  id: number;
-  name: string;
-  background_image: string;
-  parent_platforms: { platform: Platform }[]; //why becouse parent_platforms:[{platform:{id:1,name:"PC",slug:"pc"}},{platform:{id:2,name:"XO",slug:"xo"}},{platform:{id:3,name:"Laptop",slug:"lap"}}]
-  metacritic: number;
-}
+import { Game } from "../entites/Game";
 
 const apiClient = new APIClient<Game>("/games");
 
